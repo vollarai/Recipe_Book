@@ -1,22 +1,15 @@
 import { NavLink } from "react-router-dom";
-import { 
-  LuBookOpen, 
-  LuPlus, 
-  LuStar, 
-  LuChefHat 
-} from "react-icons/lu";
-
+import { LuBookOpen, LuPlus, LuStar, LuUtensils} from "react-icons/lu";
 
 export const LeftPanel = () => {
   return (
-    <aside className="hidden md:flex w-64 flex-col bg-slate-950 text-slate-50 p-6 gap-8">
+    <aside className="hidden md:flex w-64 flex-col bg-slate-900 text-slate-50 p-6 gap-8">
       <div className="flex items-center gap-3">
         <div className="h-10 w-10 rounded-2xl bg-emerald-500 flex items-center justify-center text-xl">
-          <LuChefHat size={20} className="text-white" />
+          <LuUtensils size={20} className="text-white" />
         </div>
         <div>
           <div className="text-lg font-semibold tracking-tight">RecipeBook</div>
-          <div className="text-xs text-slate-400">Personal cookbook</div>
         </div>
       </div>
 

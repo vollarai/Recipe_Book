@@ -18,7 +18,7 @@ export const mockRecipes: Recipe[] = [
         3. Add cream and parmesan, simmer for 3–4 minutes.
         4. Toss pasta in the sauce, season and serve.`,
     category: "Dinner",
-    imageUrl: "/images/pasta.jpg",
+    imageUrl: "images/pasta.jpg",
     createdAt: "2025-01-01T12:00:00Z",
   },
   {
@@ -37,7 +37,7 @@ export const mockRecipes: Recipe[] = [
         3. Cook soft-boiled eggs (6–7 minutes).
         4. Spread avocado on toast, top with egg and chili flakes.`,
     category: "Breakfast",
-    imageUrl: "/images/toast.jpg",
+    imageUrl: "images/toast.jpg",
     createdAt: "2025-02-01T12:00:00Z",
   },
   {
@@ -57,7 +57,7 @@ export const mockRecipes: Recipe[] = [
         3. Fold in melted chocolate and flour.
         4. Pour into ramekins and bake 8–10 minutes at 220°C.`,
     category: "Dessert",
-    imageUrl: "/images/cake.jpg",
+    imageUrl: "images/cake.jpg",
     createdAt: "2025-03-01T12:00:00Z",
   },
   {
@@ -77,7 +77,7 @@ export const mockRecipes: Recipe[] = [
         3. Add lettuce, chicken, parmesan and Caesar dressing.
         4. Roll tightly and slice in half.`,
     category: "Lunch",
-    imageUrl: "/images/wrap.jpg",
+    imageUrl: "images/wrap.jpg",
     createdAt: "2025-04-03T13:10:00Z",
     },
     {
@@ -99,7 +99,7 @@ export const mockRecipes: Recipe[] = [
         4. Blend until smooth.
         5. Serve with fresh basil.`,
     category: "Dinner",
-    imageUrl: "/images/soup.jpg",
+    imageUrl: "images/soup.jpg",
     createdAt: "2025-05-04T18:45:00Z",
     },
     {
@@ -119,7 +119,7 @@ export const mockRecipes: Recipe[] = [
         3. Cook 2 minutes per side until golden.
         4. Serve with berries and honey.`,
     category: "Breakfast",
-    imageUrl: "/images/pancakes.jpg",
+    imageUrl: "images/pancakes.jpg",
     createdAt: "2025-06-06T08:20:00Z",
     },
     {
@@ -140,7 +140,7 @@ export const mockRecipes: Recipe[] = [
         3. Add olive oil, lemon juice and seasoning.
         4. Serve chilled.`,
     category: "Lunch",
-    imageUrl: "/images/salad.jpg",
+    imageUrl: "images/salad.jpg",
     createdAt: "2025-01-08T12:40:00Z",
     },
     {
@@ -158,7 +158,7 @@ export const mockRecipes: Recipe[] = [
         2. Spread mixture onto toasted bread.
         3. Cut in half and serve.`,
     category: "Lunch",
-    imageUrl: "/images/tuna.jpg",
+    imageUrl: "images/tuna.jpg",
     createdAt: "2025-08-09T13:05:00Z",
     },
     {
@@ -177,7 +177,7 @@ export const mockRecipes: Recipe[] = [
         3. Top with lemon slices.
         4. Bake for 15 minutes at 200°C.`,
     category: "Dinner",
-    imageUrl: "/images/salmon.jpg",
+    imageUrl: "images/salmon.jpg",
     createdAt: "2025-09-11T20:15:00Z",
     },
     {
@@ -195,7 +195,7 @@ export const mockRecipes: Recipe[] = [
         2. Mix oats with butter to make crumble.
         3. Bake apples with crumble topping for 25 minutes.`,
     category: "Dessert",
-    imageUrl: "/images/crumble.jpg",
+    imageUrl: "images/crumble.jpg",
     createdAt: "2025-01-19T18:10:00Z",
     },
 ];

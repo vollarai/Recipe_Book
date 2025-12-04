@@ -6,6 +6,8 @@ import type { Recipe } from "../models/recipe";
 import { LuUtensils, LuHeart } from "react-icons/lu";
 import { categoryColor } from "../models/categoryColor";
 import { useFavorites } from "../providers/FavoritesContext";
+import { mockRecipes } from "../mocks/mockRecipes";
+import { useMock, API_URL } from "../utils/config";
 
 export const FavoritesPage = () => {
   const { token } = useUser();
@@ -17,6 +19,12 @@ export const FavoritesPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (useMock) {
+      setRecipes(mockRecipes);
+      setLoading(false);
+      return;
+    }
+
     if (!token) {
       setError("You are not authorized");
       setLoading(false);
@@ -25,7 +33,8 @@ export const FavoritesPage = () => {
 
     const load = async () => {
       try {
-        const res = await fetch("http://localhost:5113/api/recipes", {
+        //const res = await fetch("http://localhost:5113/api/recipes", {
+        const res = await fetch(`${API_URL}/api/recipes`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -91,7 +100,7 @@ export const FavoritesPage = () => {
               >
                 {recipe.imageUrl ? (
                   <img
-                    src={`http://localhost:5113${recipe.imageUrl}`}
+                    src={useMock ? recipe.imageUrl : `${API_URL}${recipe.imageUrl}`}
                     alt={recipe.title}
                     className="h-40 w-full object-cover"
                   />

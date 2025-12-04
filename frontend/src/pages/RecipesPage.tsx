@@ -6,6 +6,8 @@ import type { Recipe } from "../models/recipe";
 import { LuSearch, LuUtensils, LuHeart } from "react-icons/lu";
 import { categoryColor } from "../models/categoryColor";
 import { useFavorites } from "../providers/FavoritesContext";
+import { useMock, API_URL } from "../utils/config";
+import { mockRecipes } from "../mocks/mockRecipes";
 
 type SortOrder = "newest" | "oldest";
 
@@ -23,11 +25,16 @@ export const RecipesPage = () => {
   const { isFavorite, toggleFavorite } = useFavorites();
 
   useEffect(() => {
+    if (useMock) {
+      setRecipes(mockRecipes);
+      setLoading(false);
+      return;
+    }
+
     if (!token) {
       navigate("/");
       return;
     }
-
     const load = async () => {
       try {
         const res = await fetch("http://localhost:5113/api/recipes", {
@@ -206,7 +213,7 @@ export const RecipesPage = () => {
               >
                 {recipe.imageUrl ? (
                   <img
-                    src={`http://localhost:5113${recipe.imageUrl}`}
+                    src={useMock ? recipe.imageUrl : `${API_URL}${recipe.imageUrl}`}
                     alt={recipe.title}
                     className="h-40 w-full object-cover"
                   />

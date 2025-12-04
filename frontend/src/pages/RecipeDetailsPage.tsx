@@ -7,6 +7,8 @@ import { LuUtensils, LuHeart, LuArrowLeft, LuTrash, LuPencil } from "react-icons
 import { useFavorites } from "../providers/FavoritesContext";
 import { categoryColor } from "../models/categoryColor";
 import { toast } from "react-toastify";
+import { mockRecipes } from "../mocks/mockRecipes";
+import { useMock, API_URL } from "../utils/config";
 
 export const RecipeDetailsPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,13 +21,26 @@ export const RecipeDetailsPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!token) {
-      navigate("/");
-      return;
-    }
     if (!id) {
       setError("Recipe not found");
       setLoading(false);
+      return;
+    }
+
+    if (useMock) {
+      const found = mockRecipes.find((r) => String(r.id) === id);
+      if (!found) {
+        setError("Recipe not found");
+        setLoading(false);
+        return;
+      }
+      setRecipe(found);
+      setLoading(false);
+      return;
+    }
+
+    if (!token) {
+      navigate("/");
       return;
     }
 
@@ -34,7 +49,8 @@ export const RecipeDetailsPage = () => {
         setLoading(true);
         setError(null);
 
-        const res = await fetch(`http://localhost:5113/api/recipes/${id}`, {
+        //const res = await fetch(`http://localhost:5113/api/recipes/${id}`, {
+        const res = await fetch(`${API_URL}/api/recipes/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -61,11 +77,20 @@ export const RecipeDetailsPage = () => {
     const handleDelete = async () => {
     if (!token || !id) return;
 
+    if (useMock) {
+      const confirmed = window.confirm("Demo mode: this recipe will not be actually deleted. Continue?");
+      if (!confirmed) return;
+      toast.info("Demo mode: recipe is not really deleted.");
+      navigate("/recipes");
+      return;
+    }
+
     const confirmed = window.confirm("Delete this recipe?");
     if (!confirmed) return;
 
     try {
-      const res = await fetch(`http://localhost:5113/api/recipes/${id}`, {
+      //const res = await fetch(`http://localhost:5113/api/recipes/${id}`, {
+      const res = await fetch(`${API_URL}/api/recipes/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -116,7 +141,7 @@ export const RecipeDetailsPage = () => {
             <article className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
               {recipe.imageUrl ? (
                 <img
-                  src={`http://localhost:5113${recipe.imageUrl}`}
+                  src={useMock ? recipe.imageUrl : `${API_URL}${recipe.imageUrl}`}
                   alt={recipe.title}
                   className="h-64 w-full object-cover"
                 />

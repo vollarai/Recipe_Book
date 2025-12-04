@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import type { Recipe } from "../models/recipe";
 import type { FormValues } from "../models/formValues";
 import { recipeSchema } from "../models/recipeSchema";
+import { mockRecipes } from "../mocks/mockRecipes";
+import { useMock, API_URL } from "../utils/config";
 
 export const EditRecipePage = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,13 +21,37 @@ export const EditRecipePage = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!token) {
-      navigate("/");
-      return;
-    }
     if (!id) {
       setError("Recipe not found");
       setLoading(false);
+      return;
+    }
+
+    if (useMock) {
+      const recipe = mockRecipes.find((r) => String(r.id) === id);
+
+      if (!recipe) {
+        setError("Recipe not found");
+        setLoading(false);
+        return;
+      }
+
+      setInitialValues({
+        title: recipe.title,
+        description: recipe.description || "",
+        ingredients: recipe.ingredients || "",
+        steps: recipe.steps || "",
+        category: recipe.category || "",
+        image: null,
+      });
+
+      setCurrentImageUrl(recipe.imageUrl || null);
+      setLoading(false);
+      return;
+    }
+
+    if (!token) {
+      navigate("/");
       return;
     }
 
@@ -34,7 +60,8 @@ export const EditRecipePage = () => {
         setLoading(true);
         setError(null);
 
-        const res = await fetch(`http://localhost:5113/api/recipes/${id}`, {
+        //const res = await fetch(`http://localhost:5113/api/recipes/${id}`, {
+        const res = await fetch(`${API_URL}/api/recipes/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -57,7 +84,8 @@ export const EditRecipePage = () => {
         });
 
         setCurrentImageUrl(
-          data.imageUrl ? `http://localhost:5113${data.imageUrl}` : null
+          //data.imageUrl ? `http://localhost:5113${data.imageUrl}` : null
+          data.imageUrl ? `${API_URL}${data.imageUrl}` : null
         );
       } catch (e) {
         console.error(e);
@@ -71,6 +99,12 @@ export const EditRecipePage = () => {
   }, [id, token, navigate]);
 
   const handleSubmit = async (values: FormValues) => {
+    if (useMock) {
+      toast.info("Demo mode: changes are not saved.");
+      navigate(`/recipes/${id}`);
+      return;
+    }
+
     if (!token || !id) return;
 
     try {

@@ -5,12 +5,19 @@ import { useUser } from "../providers/UserContext";
 import { toast } from "react-toastify";
 import { recipeSchema } from "../models/recipeSchema";
 import { initialValues } from "../models/initialValues";
+import { useMock, API_URL } from "../utils/config";
 
 export const AddRecipePage = () => {
   const navigate = useNavigate();
   const { token } = useUser();
 
   const handleSubmit = async (values: typeof initialValues) => {
+    if (useMock) {
+      toast.info("Demo mode: recipe is not actually saved.");
+      navigate("/recipes");
+      return;
+    }
+    
     try {
       const formData = new FormData();
       formData.append("title", values.title);
@@ -26,7 +33,8 @@ export const AddRecipePage = () => {
         formData.append("image", values.image);
       }
 
-      const res = await fetch("http://localhost:5113/api/recipes", {
+      //const res = await fetch("http://localhost:5113/api/recipes", {
+      const res = await fetch(`${API_URL}/api/recipes`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

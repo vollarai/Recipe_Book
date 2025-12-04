@@ -18,7 +18,7 @@ export const mockRecipes: Recipe[] = [
         3. Add cream and parmesan, simmer for 3–4 minutes.
         4. Toss pasta in the sauce, season and serve.`,
     category: "Dinner",
-    imageUrl: "images/pasta.jpg",
+    imageUrl: "/images/pasta.jpg",
     createdAt: "2025-01-01T12:00:00Z",
   },
   {

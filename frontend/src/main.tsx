@@ -8,9 +8,11 @@ import { ThemeProvider } from "./providers/ThemeProvider";
 import { BrowserRouter } from 'react-router-dom';
 import { FavoritesProvider } from './providers/FavoritesContext.tsx';
 
+const basename = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter basename="/Recipe_Book">
+    <BrowserRouter basename={basename}>
       <UserProvider>
         <ThemeProvider>
           <FavoritesProvider>

@@ -1,4 +1,4 @@
-https://vollarai.github.io/Recipe_Book/
+https://vollarai.github.io/Recipe-Book/
 
 Recipe Book is a web application that allows users to:
 
